@@ -1,0 +1,32 @@
+{
+  "name": "learnhub-backend",
+  "version": "1.0.0",
+  "description": "LearnHub Backend API",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "postgresql",
+    "jwt",
+    "rest-api"
+  ],
+  "author": "Rahul Chandnani",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.2.0",
+    "nodemailer": "^9.0.3",
+    "nodemon": "^3.1.14",
+    "otp-generator": "^4.0.1",
+    "pdfkit": "^0.19.1",
+    "pg": "^8.16.3"
+  }
+}
