@@ -39,7 +39,7 @@ exports.verifyRegistration = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+console.log("point hit");
     const result = await authService.login(
       email,
       password

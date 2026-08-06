@@ -344,22 +344,24 @@ exports.login = async (
   email,
   password
 ) => {
+  console.log("service");
   const result = await pool.query(
     "SELECT * FROM users WHERE email=$1",
     [email]
   );
-
+console.log(result)
   if (result.rows.length === 0) {
     throw new Error("Invalid Credentials");
   }
 
   const user = result.rows[0];
-
+  console.log("Password from DB:", user.password);
+console.log("Type:", typeof user.password);
   const isMatch = await bcrypt.compare(
     password,
     user.password
   );
-
+console.log("Password Match:", isMatch);
   if (!isMatch) {
     throw new Error("Invalid Credentials");
   }
