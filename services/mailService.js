@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 exports.sendMail = async (to, subject, otp) => {
   const { data, error } = await resend.emails.send({
-    from: "LearnHub <onboarding@resend.dev>",
+    from: "LearnHub <onboarding@learnhublearning.in>",
     to: [to],
     subject,
     html: `
