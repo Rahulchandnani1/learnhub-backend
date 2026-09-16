@@ -7,17 +7,16 @@ exports.createCourse = async (req, res) => {
   try {
     const {
       title,
-  description,
-  price,
-  instructor,
-  category,
-  level,
-  language,
-  duration,
+      description,
+      price,
+      instructor,
+      category,
+      level,
+      language,
+      duration,
+      thumbnail,
     } = req.body;
-  const thumbnail = req.file
-      ? req.file.filename
-      : null;
+
     // Validation
     if (!title) {
       return res.status(400).json({
@@ -30,15 +29,15 @@ exports.createCourse = async (req, res) => {
       `
       INSERT INTO courses
       (
-         title,
-  description,
-  price,
-  instructor,
-  category,
-  level,
-  language,
-  duration,
-  thumbnail,
+        title,
+        description,
+        price,
+        instructor,
+        category,
+        level,
+        language,
+        duration,
+        thumbnail,
         created_by
       )
       VALUES
@@ -58,14 +57,14 @@ exports.createCourse = async (req, res) => {
       `,
       [
         title,
-  description,
-  price,
-  instructor,
-  category,
-  level,
-  language,
-  duration,
-  thumbnail,
+        description,
+        price,
+        instructor,
+        category,
+        level,
+        language,
+        duration,
+        thumbnail || null,
         req.user.id,
       ]
     );
@@ -214,22 +213,17 @@ exports.updateCourse = async (req, res) => {
 
     const {
       title,
-  description,
-  price,
-  instructor,
-  category,
-  level,
-  language,
-  duration,
+      description,
+      price,
+      instructor,
+      category,
+      level,
+      language,
+      duration,
+      thumbnail,
       published,
     } = req.body;
- let thumbnail;
 
-if (req.file) {
-  thumbnail = req.file.filename;
-} else {
-  thumbnail = req.body.thumbnail;
-}
     // Check if course exists
     const course = await pool.query(
       "SELECT * FROM courses WHERE id=$1",
@@ -247,29 +241,29 @@ if (req.file) {
       `
       UPDATE courses
       SET
-       title=$1,
-       description=$2,
-       price=$3,
-       instructor=$4,
-       category=$5,
-       level=$6,
-       language=$7,
-       duration=$8,
-       thumbnail=$9,
-       published=$10
+        title=$1,
+        description=$2,
+        price=$3,
+        instructor=$4,
+        category=$5,
+        level=$6,
+        language=$7,
+        duration=$8,
+        thumbnail=$9,
+        published=$10
       WHERE id=$11
       RETURNING *
       `,
       [
-         title,
-  description,
-  price,
-  instructor,
-  category,
-  level,
-  language,
-  duration,
-  thumbnail,
+        title,
+        description,
+        price,
+        instructor,
+        category,
+        level,
+        language,
+        duration,
+        thumbnail || null,
         published,
         id,
       ]
@@ -280,16 +274,13 @@ if (req.file) {
       message: "Course updated successfully",
       data: result.rows[0],
     });
-
   } catch (error) {
-
     console.log(error);
 
     res.status(500).json({
       success: false,
       message: error.message,
     });
-
   }
 };
 // ====================================
